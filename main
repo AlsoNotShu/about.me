@@ -587,11 +587,10 @@ body[unresolved] {opacity: 0; display: block; overflow: hidden; position: relati
       <div id="bio" class="intro-fade">
         <div id="bio-toggle"><span id="bio-caret">&gt;</span> bio</div>
         <div id="bio-body">
-          привет, я casual. я люблю писать код и общаться с добрыми людьми.<br>
-          мне не сильно нравится, когда ко мне плохо относятся, у меня портится<br>
-          настроение от плохих слов в мою сторону. не знаю зачем это пишу, думаю просто<br>
-          может поделиться с кем-то, кто я. я хочу начать изучать кибербезопасность,<br>
-          писать аддоны и моды на игры, и в целом помогать людям.
+          привет незнакомец. я шу, занимаюсь звуко дизайном.
+          мне приятно общаться с людьми и сидеть с ними в войсе
+          ну вроде бы все
+          
         </div>
       </div>
     </div>
@@ -601,7 +600,7 @@ body[unresolved] {opacity: 0; display: block; overflow: hidden; position: relati
     <a href="https://github.com/nocasualities" target="_blank" rel="noopener noreferrer" aria-label="GitHub">
       <i class="fab fa-github"></i><span class="corrupt-text" data-busy="" data-restore="github">github</span>
     </a>
-    <a href="https://discord.gg/Dyvu2nKAff" target="_blank" rel="noopener noreferrer" aria-label="Discord">
+    <a href="https://discord.gg/ua8JpxnkqS" target="_blank" rel="noopener noreferrer" aria-label="Discord">
       <i class="fab fa-discord"></i><span class="corrupt-text" data-busy="" data-restore="discord">discord</span>
     </a>
     <a href="https://steamcommunity.com/id/nocasualities/" target="_blank" rel="noopener noreferrer" aria-label="Steam">
@@ -905,11 +904,11 @@ body[unresolved] {opacity: 0; display: block; overflow: hidden; position: relati
 
     setTimeout(startQuoteCycle, 2000);
 
-    const tabTitles = ['КТО ТЫ??', 'Я СХОЖУ С УМАААА', 'АААаааАаа', 'AARGH FUUUUUCK..'];
+    const tabTitles = ['привет друг', 'кто я такой??', 'жизнь не вечна', 'мы все умрем'];
     let titleIndex = Math.floor(Math.random() * tabTitles.length);
     let titleTimer = null;
     let titleTimeout = null;
-    document.title = 'НЕ БОйСяЯЯ..';
+    document.title = 'кто_я_такой??';
 
     function nextTitle() {
       if (titleTimer) clearInterval(titleTimer);
@@ -925,7 +924,7 @@ body[unresolved] {opacity: 0; display: block; overflow: hidden; position: relati
     setTimeout(nextTitle, 2500);
 
     // ---------- url hash cycling ----------
-    const urlHashNames = ['#НЕ_БОйСяЯЯ..', '#КТО_ТЫ??', '#Я_СХОЖУ_С_УМАААА', '#АААаааАаа', '#AARGH_FUUUUUCK..'];
+    const urlHashNames = ['#привет_друг', '#кто_я_такой??', '#жизнь_не_вечна', '#АААаааАаа', 'мы_все_умрем.'];
     const urlGlitchChars = 'АБВГДЕЁЖЗИКЛМНОПРСТУФХЦЧШЩЪЫЬЭЮЯабвгдеёжзиклмнопрстуфхцчшщъыьэюя?!@*_&$';
     let urlIndex = 0;
 
