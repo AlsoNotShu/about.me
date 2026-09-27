@@ -1387,7 +1387,7 @@ body[unresolved] {opacity: 0; display: block; overflow: hidden; position: relati
 
     // ---------- background music ----------
     const bgm = document.getElementById('bgm');
-    bgm.volume = 0.3;
+    bgm.volume = 0.1;
     function startMusic() {
       setupVisualizer();
       if (audioCtx && audioCtx.state === 'suspended') audioCtx.resume().catch(() => {});
