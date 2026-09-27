@@ -1,0 +1,1667 @@
+<html lang="ru"><head><style>body {transition: opacity ease-in 0.2s; } 
+body[unresolved] {opacity: 0; display: block; overflow: hidden; position: relative; } 
+
+    .status-noise {
+      display: inline-block;
+      margin-left: 4px;
+      opacity: 0;
+      transform: translateY(1px);
+      transition: opacity 0.2s ease;
+    }
+
+    .status-line:hover .status-noise {
+      opacity: 0.55;
+      animation: tinyBlink 0.8s steps(2) infinite;
+    }
+
+    @keyframes tinyBlink {
+      0%, 100% { opacity: 0.15; }
+      50% { opacity: 0.8; }
+    }
+
+    #shu-secret {
+      height: 0;
+      overflow: hidden;
+      opacity: 0;
+      font: 10px 'Courier New', monospace;
+      text-align: center;
+      letter-spacing: 2px;
+      pointer-events: none;
+      transition: opacity 0.3s ease, height 0.3s ease;
+    }
+
+    #shu-secret.show {
+      height: 18px;
+      opacity: 0.45;
+      margin-top: 2px;
+    }
+
+</style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>кто я такой??</title>
+
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20viewBox%3D'0%200%20100%20100'%3E%3Crect%20width%3D'100'%20height%3D'100'%20rx%3D'24'%20fill%3D'%230a0a0a'%2F%3E%3Cpath%20d%3D'M10%2050%20C28%2026%2072%2026%2090%2050%20C72%2074%2028%2074%2010%2050%20Z'%20fill%3D'%23f5f5f5'%2F%3E%3Cg%20transform%3D'translate(50%2050)'%3E%3Cpath%20fill%3D'%23111'%20d%3D'M0%20-23%20L-3.5%20-13%20L3.5%20-13%20Z'%2F%3E%3Cpath%20fill%3D'%23111'%20transform%3D'rotate(36)'%20d%3D'M0%20-23%20L-3.5%20-13%20L3.5%20-13%20Z'%2F%3E%3Cpath%20fill%3D'%23111'%20transform%3D'rotate(72)'%20d%3D'M0%20-23%20L-3.5%20-13%20L3.5%20-13%20Z'%2F%3E%3Cpath%20fill%3D'%23111'%20transform%3D'rotate(108)'%20d%3D'M0%20-23%20L-3.5%20-13%20L3.5%20-13%20Z'%2F%3E%3Cpath%20fill%3D'%23111'%20transform%3D'rotate(144)'%20d%3D'M0%20-23%20L-3.5%20-13%20L3.5%20-13%20Z'%2F%3E%3Cpath%20fill%3D'%23111'%20transform%3D'rotate(180)'%20d%3D'M0%20-23%20L-3.5%20-13%20L3.5%20-13%20Z'%2F%3E%3Cpath%20fill%3D'%23111'%20transform%3D'rotate(216)'%20d%3D'M0%20-23%20L-3.5%20-13%20L3.5%20-13%20Z'%2F%3E%3Cpath%20fill%3D'%23111'%20transform%3D'rotate(252)'%20d%3D'M0%20-23%20L-3.5%20-13%20L3.5%20-13%20Z'%2F%3E%3Cpath%20fill%3D'%23111'%20transform%3D'rotate(288)'%20d%3D'M0%20-23%20L-3.5%20-13%20L3.5%20-13%20Z'%2F%3E%3Cpath%20fill%3D'%23111'%20transform%3D'rotate(324)'%20d%3D'M0%20-23%20L-3.5%20-13%20L3.5%20-13%20Z'%2F%3E%3Ccircle%20r%3D'13'%20fill%3D'%23111'%2F%3E%3C%2Fg%3E%3C%2Fsvg%3E">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&amp;family=Shadows+Into+Light&amp;display=swap" rel="stylesheet">
+
+  <style>
+    :root {
+      --text: #f4f4f4;
+      --soft-text: rgba(255, 255, 255, 0.86);
+      --line: rgba(255, 255, 255, 0.55);
+      --link: rgba(255, 255, 255, 0.34);
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    /* interactive atmosphere */
+    .text-box {
+      transition: transform 0.8s cubic-bezier(0.22, 1, 0.36, 1);
+    }
+
+    .music-visualizer {
+      position: fixed;
+      left: 50%;
+      bottom: 74px;
+      transform: translateX(-50%);
+      display: flex;
+      align-items: flex-end;
+      gap: 3px;
+      height: 18px;
+      opacity: 0.42;
+      pointer-events: none;
+      z-index: 8;
+      transition: opacity 0.5s ease;
+    }
+    .music-visualizer span {
+      width: 2px;
+      height: 4px;
+      border-radius: 2px;
+      background: rgba(225,235,255,0.75);
+      box-shadow: 0 0 8px rgba(215,225,255,0.18);
+      transform-origin: bottom;
+      transition: height 0.12s ease;
+    }
+    .music-visualizer.active { opacity: 0.7; }
+
+    .ascii-title.glitching {
+      animation: titleGlitch 0.22s steps(2, end);
+    }
+    @keyframes titleGlitch {
+      0% { transform: translateX(0); filter: drop-shadow(0 0 8px rgba(220,230,255,0.05)); }
+      35% { transform: translateX(-2px); filter: drop-shadow(2px 0 8px rgba(255,255,255,0.16)); }
+      65% { transform: translateX(2px); filter: drop-shadow(-2px 0 10px rgba(220,230,255,0.14)); }
+      100% { transform: translateX(0); }
+    }
+
+    /* click ripple / droplet effect */
+    .click-ripple {
+      position: fixed;
+      width: 14px;
+      height: 14px;
+      border: 1px solid rgba(225,235,255,0.48);
+      border-radius: 50%;
+      pointer-events: none;
+      z-index: 10000;
+      transform: translate(-50%, -50%) scale(0.2);
+      opacity: 0.62;
+      box-shadow: 0 0 12px rgba(205,220,255,0.12), inset 0 0 6px rgba(255,255,255,0.05);
+      animation: clickRipple 1s cubic-bezier(0.2,0.65,0.25,1) forwards;
+    }
+
+    .click-ripple::after {
+      content: '';
+      position: absolute;
+      inset: 2px;
+      border: 1px solid rgba(255,255,255,0.14);
+      border-radius: 50%;
+      transform: scale(0.4);
+      animation: rippleInner 1s ease-out forwards;
+    }
+
+    .click-drop {
+      position: fixed;
+      width: 3px;
+      height: 3px;
+      border-radius: 50%;
+      background: rgba(235,242,255,0.48);
+      box-shadow: 0 0 6px rgba(215,225,255,0.22);
+      pointer-events: none;
+      z-index: 10000;
+      transform: translate(-50%, -50%);
+      animation: dropSplash 0.75s cubic-bezier(0.2,0.7,0.25,1) forwards;
+    }
+
+    @keyframes clickRipple {
+      0% { transform: translate(-50%, -50%) scale(0.2); opacity: 0.85; }
+      45% { opacity: 0.34; }
+      100% { transform: translate(-50%, -50%) scale(5.2); opacity: 0; }
+    }
+
+    @keyframes rippleInner {
+      0% { transform: scale(0.4); opacity: 0.32; }
+      100% { transform: scale(3.5); opacity: 0; }
+    }
+
+    @keyframes dropSplash {
+      0% { transform: translate(-50%, -50%) translate(0,0) scale(1); opacity: 0.52; }
+      100% { transform: translate(-50%, -50%) translate(var(--dx), var(--dy)) scale(0.15); opacity: 0; }
+    }
+
+
+    html,
+    body {
+      margin: 0;
+      padding: 0;
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
+      background:
+        radial-gradient(circle at 50% 42%, #2a3040 0%, #171c2b 34%, #0a0d16 70%, #05060a 100%);
+      color: var(--text);
+      font-family: 'Bahnschrift', 'Inter', sans-serif;
+      user-select: none;
+      cursor: none;
+    }
+
+    body {
+      position: relative;
+      animation: screenFlicker 8s infinite;
+    }
+
+    @keyframes screenFlicker {
+      0%, 100% { filter: brightness(1) contrast(1); }
+      48% { filter: brightness(1) contrast(1); }
+      49% { filter: brightness(0.992) contrast(1.01); }
+      50% { filter: brightness(1.006) contrast(1.02); }
+      51% { filter: brightness(0.996) contrast(1.01); }
+      52% { filter: brightness(1) contrast(1); }
+    }
+
+    .bg-blur-wrap {
+      position: fixed;
+      inset: 0;
+      z-index: 0;
+      pointer-events: none;
+    }
+
+    .bg-blur {
+      position: absolute;
+      border-radius: 50%;
+      filter: blur(130px);
+      opacity: 0.12;
+      mix-blend-mode: screen;
+    }
+
+    .blur-1 {
+      width: 360px;
+      height: 360px;
+      top: 6%;
+      left: 8%;
+      background: rgba(125, 150, 225, 0.18);
+      animation: blurFloat1 18s ease-in-out infinite alternate;
+    }
+
+    .blur-2 {
+      width: 420px;
+      height: 420px;
+      right: 8%;
+      bottom: 8%;
+      background: rgba(150, 115, 190, 0.13);
+      animation: blurFloat2 23s ease-in-out infinite alternate;
+    }
+
+    .blur-3 {
+      width: 260px;
+      height: 260px;
+      left: 42%;
+      top: 68%;
+      background: rgba(190, 205, 240, 0.07);
+      animation: blurFloat3 20s ease-in-out infinite alternate;
+    }
+
+    @keyframes blurFloat1 {
+      from { transform: translate3d(0, 0, 0) scale(1); opacity: 0.1; }
+      to   { transform: translate3d(55px, -28px, 0) scale(1.05); opacity: 0.13; }
+    }
+
+    @keyframes blurFloat2 {
+      from { transform: translate3d(0, 0, 0) scale(1); opacity: 0.1; }
+      to   { transform: translate3d(-65px, 34px, 0) scale(0.96); opacity: 0.14; }
+    }
+
+    @keyframes blurFloat3 {
+      from { transform: translate3d(0, 0, 0) scale(1); opacity: 0.04; }
+      to   { transform: translate3d(20px, -36px, 0) scale(1.08); opacity: 0.045; }
+    }
+
+    .ghost-layer {
+      position: fixed;
+      inset: 0;
+      z-index: 2;
+      pointer-events: none;
+    }
+
+    .ghost {
+      position: absolute;
+      color: rgba(255, 255, 255, 0.03);
+      text-transform: uppercase;
+      letter-spacing: 0.22em;
+      filter: blur(1.5px);
+      white-space: nowrap;
+      text-shadow: 0 0 12px rgba(255,255,255,0.02);
+    }
+
+    .ghost-1 {
+      top: 10%;
+      left: 7%;
+      font-size: clamp(2rem, 4vw, 4rem);
+      animation: ghostFloat1 16s ease-in-out infinite alternate;
+    }
+
+    .ghost-2 {
+      right: 8%;
+      bottom: 20%;
+      font-size: clamp(1rem, 2vw, 1.7rem);
+      animation: ghostFloat2 20s ease-in-out infinite alternate;
+    }
+
+    .ghost-3 {
+      left: 61%;
+      top: 54%;
+      font-size: clamp(1.1rem, 2.4vw, 2rem);
+      animation: ghostFloat3 18s ease-in-out infinite alternate;
+    }
+
+    @keyframes ghostFloat1 {
+      from { transform: translate3d(0, 0, 0); opacity: 0.02; }
+      to   { transform: translate3d(18px, -10px, 0); opacity: 0.04; }
+    }
+
+    @keyframes ghostFloat2 {
+      from { transform: translate3d(0, 0, 0); opacity: 0.018; }
+      to   { transform: translate3d(-14px, 11px, 0); opacity: 0.034; }
+    }
+
+    @keyframes ghostFloat3 {
+      from { transform: translate3d(0, 0, 0); opacity: 0.02; }
+      to   { transform: translate3d(12px, -15px, 0); opacity: 0.036; }
+    }
+
+    #particles-js {
+      position: fixed;
+      inset: 0;
+      z-index: 1;
+    }
+    #ambient-canvas {
+      position: fixed;
+      inset: 0;
+      z-index: 2;
+      pointer-events: none;
+      opacity: 0.8;
+    }
+
+    .noise {
+      position: fixed;
+      inset: -20%;
+      pointer-events: none;
+      z-index: 3;
+      opacity: 0.07;
+      background-image:
+        radial-gradient(rgba(255,255,255,0.32) 0.6px, transparent 0.85px),
+        radial-gradient(rgba(255,255,255,0.11) 0.5px, transparent 0.75px);
+      background-size: 8px 8px, 11px 11px;
+      background-position: 0 0, 4px 5px;
+      mix-blend-mode: soft-light;
+      animation: noiseShift 0.22s steps(2) infinite;
+    }
+
+    @keyframes noiseShift {
+      0%   { transform: translate(0, 0); }
+      25%  { transform: translate(-1%, 1%); }
+      50%  { transform: translate(1%, -1%); }
+      75%  { transform: translate(0.5%, 1%); }
+      100% { transform: translate(0, 0); }
+    }
+
+    .scanlines {
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      z-index: 4;
+      opacity: 0.045;
+      background: repeating-linear-gradient(
+        to bottom,
+        rgba(255,255,255,0.08) 0px,
+        rgba(255,255,255,0.08) 1px,
+        transparent 2px,
+        transparent 4px
+      );
+      mix-blend-mode: soft-light;
+    }
+
+    .vignette {
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      z-index: 5;
+      background: radial-gradient(
+        circle at center,
+        transparent 30%,
+        rgba(0, 0, 0, 0.10) 58%,
+        rgba(0, 0, 0, 0.22) 100%
+      );
+    }
+
+    #cursor-dot {
+      position: fixed;
+      left: 50%;
+      top: 50%;
+      width: 6px;
+      height: 6px;
+      background: #ffffff;
+      border-radius: 50%;
+      pointer-events: none;
+      z-index: 9999;
+      transform: translate(-50%, -50%);
+    }
+
+    #cursor-ring {
+      position: fixed;
+      left: 50%;
+      top: 50%;
+      width: 40px;
+      height: 40px;
+      border: 1.5px solid rgba(255, 255, 255, 0.8);
+      border-radius: 50%;
+      pointer-events: none;
+      z-index: 9998;
+      transform: translate(-50%, -50%);
+      transition:
+        width 0.15s ease,
+        height 0.15s ease,
+        border-color 0.15s ease;
+      backdrop-filter: blur(1px);
+    }
+
+    #cursor-ring.hover {
+      width: 66px;
+      height: 66px;
+      border-color: rgba(255, 255, 255, 0.35);
+      background: radial-gradient(circle, rgba(255, 255, 255, 0.07) 0%, transparent 70%);
+    }
+
+    #cursor-ring.pressed {
+      width: 22px;
+      height: 22px;
+      border-color: rgba(255, 255, 255, 0.5);
+    }
+
+    * {
+      cursor: none !important;
+    }
+
+    .content {
+      position: relative;
+      z-index: 7;
+      display: flex;
+      justify-content: center;
+      align-items: flex-start;
+      width: 100%;
+      min-height: 100%;
+      height: auto;
+      text-align: center;
+      padding: 24px;
+      padding-top: 105px;
+      overflow-y: auto;
+      scrollbar-width: none;
+    }
+
+    .content::-webkit-scrollbar { display: none; }
+
+    .text-box {
+      position: relative;
+      width: fit-content;
+      max-width: 92vw;
+      padding: 18px 20px 24px;
+      transform: translate3d(0, 0, 0);
+      transition: transform 0.3s ease-out;
+      will-change: transform;
+    }
+
+    .ascii-title-wrap {
+      display: flex;
+      justify-content: center;
+      width: 100%;
+      text-align: center;
+      margin: 0 0 12px;
+      overflow: visible;
+    }
+
+    .ascii-title {
+      display: inline-block;
+      width: fit-content;
+      max-width: 100%;
+      margin: 0;
+      font-family: 'Courier New', monospace;
+      font-size: 12px;
+      line-height: 0.82em;
+      letter-spacing: 0;
+      white-space: pre;
+      text-align: left;
+      color: #eef2ff;
+      text-shadow:
+        0 0 12px rgba(220, 230, 255, 0.08),
+        0 0 28px rgba(220, 230, 255, 0.03);
+      opacity: 0.98;
+      filter: drop-shadow(0 0 8px rgba(220, 230, 255, 0.05));
+      user-select: none;
+      pointer-events: none;
+      overflow: visible;
+      transform: translateY(0);
+    }
+
+    .ascii-title .ascii-row {
+      display: block;
+      white-space: pre;
+      opacity: 0;
+    }
+
+    .ascii-title .ascii-row.on {
+      opacity: 1;
+      animation: rowHit 0.65s cubic-bezier(0.22, 1, 0.36, 1) both;
+    }
+
+    @keyframes rowHit {
+      0%   { transform: translateY(14px); filter: blur(10px) brightness(3); opacity: 0; }
+      25%  { transform: translateY(-3px); filter: blur(3px) brightness(2.2); opacity: 1; }
+      42%  { transform: translateY(0); filter: blur(0) brightness(1.6); text-shadow: 2px 0 rgba(255,60,60,0.9), -2px 0 rgba(0,220,255,0.9); }
+      65%  { transform: none; filter: brightness(1.25); }
+      100% { transform: none; filter: none; opacity: 1; text-shadow: none; }
+    }
+
+    .ascii-title.sync {
+      animation: titleSync 0.7s ease-out;
+    }
+
+    @keyframes titleSync {
+      0%   { transform: none; filter: none; opacity: 1; }
+      12%  { transform: translateY(-3px) scaleX(0.96); filter: brightness(1.8); opacity: 0.55; }
+      24%  { transform: translateY(2px) scaleX(1.03); filter: brightness(2.2); opacity: 0.85; }
+      36%  { transform: translateY(-1px) scaleX(0.98); filter: brightness(1.6); opacity: 0.7; }
+      50%  { transform: none; filter: brightness(1); opacity: 1; text-shadow: 3px 0 rgba(255,60,60,0.75), -3px 0 rgba(0,200,255,0.75); }
+      72%  { text-shadow: 2px 0 rgba(255,60,60,0.4), -2px 0 rgba(0,200,255,0.4); }
+      100% { transform: none; filter: none; opacity: 1; text-shadow: none; }
+    }
+
+    .intro-fade {
+      opacity: 0;
+      transform: translateY(6px);
+      filter: blur(4px);
+      transition: opacity 0.7s ease, transform 0.7s ease, filter 0.7s ease;
+    }
+
+    .intro-fade.fade-in {
+      opacity: 1;
+      transform: translateY(0);
+      filter: blur(0);
+    }
+
+    .handwritten {
+      display: inline-block;
+      margin: 0 2px;
+      font-family: 'Shadows Into Light', cursive;
+      font-size: 1.2em;
+      color: #ffffff;
+      transform: rotate(-3deg);
+      text-shadow: 0 0 10px rgba(255,255,255,0.08);
+    }
+
+    .status-line {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 8px;
+      margin: 0 auto 12px;
+      font: 10px 'Courier New', monospace;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.22);
+    }
+
+    .status-dot {
+      width: 3px;
+      height: 3px;
+      border-radius: 50%;
+      background: rgba(220,235,255,0.7);
+      box-shadow: 0 0 10px rgba(220,235,255,0.45);
+      animation: statusPulse 2.2s ease-in-out infinite;
+    }
+
+    @keyframes statusPulse {
+      0%, 100% { opacity: 0.35; transform: scale(0.8); }
+      50% { opacity: 1; transform: scale(1.15); }
+    }
+
+    .ascii-title-wrap::after {
+      content: '';
+      position: absolute;
+      width: 280px;
+      height: 90px;
+      left: 50%;
+      top: 35%;
+      transform: translate(-50%, -50%);
+      background: radial-gradient(ellipse, rgba(180,205,255,0.08), transparent 68%);
+      filter: blur(12px);
+      pointer-events: none;
+      z-index: -1;
+    }
+
+    #quote {
+      margin-top: 0;
+      min-height: 1.2em;
+      font-size: 1.3rem;
+      font-style: italic;
+      letter-spacing: 0.01em;
+      opacity: 0.14;
+      text-shadow: 0 0 12px rgba(255,255,255,0.02);
+      transition: opacity 0.4s ease;
+    }
+
+    #bio {
+      margin-top: 10px;
+      font-size: 0.95rem;
+    }
+
+    #bio-toggle {
+      display: inline-block;
+      color: rgba(180,180,180,0.6);
+      font-family: 'Courier New', monospace;
+      letter-spacing: 1px;
+      cursor: pointer;
+      user-select: none;
+      text-shadow: 0 0 10px rgba(255,255,255,0.06);
+      transition: color 0.25s ease, text-shadow 0.25s ease;
+    }
+
+    #bio-toggle:hover {
+      color: rgba(255,255,255,0.85);
+      text-shadow: 0 0 12px rgba(255,255,255,0.3);
+    }
+
+    #bio-caret {
+      display: inline-block;
+      transition: transform 0.3s ease;
+    }
+
+    #bio.open #bio-caret {
+      transform: rotate(90deg);
+    }
+
+    #bio-body {
+      overflow: hidden;
+      max-height: 0;
+      opacity: 0;
+      line-height: 1.7;
+      color: rgba(180, 180, 180, 0.45);
+      font-style: italic;
+      transition: max-height 0.5s ease, opacity 0.5s ease;
+    }
+
+    #bio.open #bio-body {
+      max-height: 260px;
+      opacity: 1;
+    }
+
+
+    .bio-contact {
+      position: relative;
+      display: table;
+      margin: 12px auto 0;
+      padding-left: 12px;
+      text-align: center;
+      font-size: inherit;
+      color: rgba(220, 225, 235, 0.62);
+      transition: color 0.35s ease, text-shadow 0.35s ease, transform 0.35s ease;
+    }
+
+    .bio-contact::before {
+      content: '';
+      position: absolute;
+      left: 0;
+      top: 50%;
+      width: 4px;
+      height: 4px;
+      border-radius: 50%;
+      background: rgba(225, 235, 255, 0.58);
+      box-shadow: 0 0 7px rgba(215, 225, 255, 0.22);
+      transform: translateY(-50%);
+      transition: transform 0.35s ease, opacity 0.35s ease, box-shadow 0.35s ease;
+    }
+
+    .bio-contact:hover {
+      color: rgba(238, 243, 250, 0.82);
+      text-shadow: 0 0 12px rgba(220, 230, 255, 0.14);
+      transform: translateY(-1px);
+    }
+
+    .bio-contact:hover::before {
+      opacity: 0.9;
+      transform: translateY(-50%) scale(1.25);
+      box-shadow: 0 0 10px rgba(215, 225, 255, 0.32);
+    }
+
+    .bio-contact a {
+      color: rgba(238, 243, 250, 0.82);
+      text-decoration: none;
+      transition: color 0.35s ease, text-shadow 0.35s ease;
+    }
+
+    .bio-contact a:hover {
+      color: rgba(255, 255, 255, 0.95);
+      text-shadow: 0 0 10px rgba(220, 230, 255, 0.2);
+    }
+
+    .ascii-title-wrap {
+      animation: titleFloat 6s ease-in-out infinite;
+    }
+
+    @keyframes titleFloat {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-1px); }
+    }
+
+    /* tiny ambient details */
+    .content::before {
+      content: '///';
+      position: absolute;
+      left: -28px;
+      top: 54%;
+      font: 9px 'Courier New', monospace;
+      letter-spacing: 3px;
+      color: rgba(210, 225, 245, 0.13);
+      animation: ambientMark 7s ease-in-out infinite;
+      pointer-events: none;
+    }
+
+    .content::after {
+      content: '01 — 00 — 01';
+      position: absolute;
+      right: -48px;
+      bottom: 24%;
+      font: 8px 'Courier New', monospace;
+      letter-spacing: 2px;
+      color: rgba(210, 225, 245, 0.09);
+      animation: ambientMark 9s ease-in-out infinite reverse;
+      pointer-events: none;
+    }
+
+    @keyframes ambientMark {
+      0%, 100% { opacity: 0.25; transform: translateY(0); }
+      50% { opacity: 0.8; transform: translateY(-5px); }
+    }
+
+
+    .footer-links {
+      position: fixed;
+      left: 50%;
+      bottom: 30px;
+      transform: translateX(-50%) translateY(12px);
+      opacity: 0;
+      z-index: 8;
+      display: flex;
+      align-items: center;
+      gap: 24px;
+      transition: opacity 0.8s ease, transform 0.8s ease;
+    }
+
+    .footer-links.fade-in {
+      opacity: 1;
+      transform: translateX(-50%) translateY(0);
+    }
+
+    .footer-links a {
+      color: var(--link);
+      text-decoration: none;
+      font-size: 22px;
+      filter: blur(0.2px);
+      transition:
+        opacity 0.3s ease,
+        transform 0.3s ease,
+        text-shadow 0.3s ease,
+        color 0.3s ease,
+        filter 0.3s ease;
+    }
+
+    .footer-links a:hover {
+      color: rgba(255,255,255,0.96);
+      transform: translateY(-3px) scale(1.03);
+      text-shadow: 0 0 18px rgba(255,255,255,0.35);
+      filter: blur(0);
+    }
+
+    .footer-links a {
+      position: relative;
+      padding: 7px 8px;
+      border-radius: 8px;
+    }
+
+    .footer-links a::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      border: 1px solid rgba(220, 232, 255, 0);
+      border-radius: inherit;
+      background: radial-gradient(circle at 50% 50%, rgba(210, 225, 255, 0.12), transparent 68%);
+      opacity: 0;
+      transform: scale(0.82);
+      transition: opacity 0.35s ease, transform 0.35s ease, border-color 0.35s ease;
+      pointer-events: none;
+    }
+
+    .footer-links a::after {
+      content: '';
+      position: absolute;
+      left: 10px;
+      right: 10px;
+      bottom: 2px;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, rgba(235, 242, 255, 0.7), transparent);
+      transform: scaleX(0);
+      transform-origin: center;
+      transition: transform 0.35s ease;
+      pointer-events: none;
+    }
+
+    .footer-links a:hover::before {
+      opacity: 1;
+      transform: scale(1);
+      border-color: rgba(220, 232, 255, 0.14);
+    }
+
+    .footer-links a:hover::after {
+      transform: scaleX(1);
+    }
+
+    .footer-links a:hover .corrupt-text {
+      color: rgba(255,255,255,0.92);
+      text-shadow: 0 0 10px rgba(220,230,255,0.28);
+    }
+
+    .footer-links a:active {
+      transform: translateY(-1px) scale(0.99);
+    }
+
+    .footer-links::before {
+      content: 'connect / find me';
+      position: absolute;
+      left: 50%;
+      bottom: calc(100% + 9px);
+      transform: translateX(-50%) translateY(3px);
+      font: 7px 'Courier New', monospace;
+      letter-spacing: 2px;
+      color: rgba(210, 225, 245, 0.12);
+      white-space: nowrap;
+      opacity: 0;
+      transition: opacity 0.45s ease, transform 0.45s ease;
+      pointer-events: none;
+    }
+
+    .footer-links:hover::before {
+      opacity: 1;
+      transform: translateX(-50%) translateY(0);
+    }
+
+    .corrupt-text {
+      font-family: 'Courier New', monospace;
+      font-size: 13px;
+      letter-spacing: 2px;
+      margin-left: 8px;
+      vertical-align: 2px;
+      color: rgba(255,255,255,0.6);
+    }
+
+    .corrupt-text.corrupting {
+      color: rgba(255,255,255,0.95);
+      animation: corruptFlicker 0.09s steps(2) infinite;
+    }
+
+    @keyframes corruptFlicker {
+      0%   { text-shadow: 0 0 6px rgba(255,0,40,0.8), -1px 0 0 rgba(255,255,255,0.6); }
+      50%  { text-shadow: 0 0 10px rgba(0,255,255,0.9), 1px 0 0 rgba(255,0,40,0.9); }
+      100% { text-shadow: 0 0 6px rgba(255,255,255,0.6), 0 0 14px rgba(255,0,40,0.5); }
+    }
+
+    @media (max-width: 768px) {
+      .content {
+        padding-top: 70px;
+        padding-left: 10px;
+        padding-right: 10px;
+      }
+
+      .text-box {
+        width: fit-content;
+        max-width: 96vw;
+        padding: 10px 8px 18px;
+        transition: none;
+      }
+
+      .ascii-title-wrap {
+        margin-top: 0;
+        margin-bottom: 8px;
+      }
+
+      .ascii-title {
+        font-size: 7px;
+        line-height: 0.84em;
+        overflow: visible;
+      }
+
+      .desc {
+        font-size: 0.95rem;
+      }
+
+      .footer-links {
+        bottom: 22px;
+        gap: 20px;
+      }
+
+      .noise { opacity: 0.045; }
+      .scanlines { opacity: 0.03; }
+      .ghost { opacity: 0.5; }
+    }
+  </style>
+</head>
+<body oncontextmenu="return false;">
+  <div class="bg-blur-wrap">
+    <div class="bg-blur blur-1"></div>
+    <div class="bg-blur blur-2"></div>
+    <div class="bg-blur blur-3"></div>
+  </div>
+
+  <div class="ghost-layer">
+    <div class="ghost ghost-1">019</div>
+    <div class="ghost ghost-2">dream residue</div>
+    <div class="ghost ghost-3">fine</div>
+  </div>
+
+  <audio id="bgm" src="music1.mp3" loop preload="auto"></audio>
+  <div class="music-visualizer" id="music-visualizer" aria-hidden="true"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></div>
+
+  <div id="particles-js"><canvas class="particles-js-canvas-el" width="800" height="1758" style="width: 100%; height: 100%;"></canvas></div>
+  <canvas id="ambient-canvas"></canvas>
+  <div class="noise"></div>
+  <div class="scanlines"></div>
+  <div class="vignette"></div>
+  <div id="cursor-dot"></div>
+  <div id="cursor-ring"></div>
+
+  <div class="content">
+    <div id="float-box" class="text-box">
+      <div class="ascii-title-wrap">
+        <pre id="ascii-title" class="ascii-title">                                                    
+                                                    
+                                                    
+                                                    
+                                                    
+      .&amp;@, ;@, 3&amp;&amp;. ,&amp;&amp;&amp;&amp;3,&amp;&amp;@@@,:@@@@, :@&amp;,        
+       :@2,@&amp;..&amp;9&amp;.   B&amp;.   ,@, .@@,    ,@&amp;&amp;.       
+       .B@i@, ,&amp;;&amp;A   B@,   ,@, ,@@i    #@#@,       
+        ,@&amp;&amp;. ,&amp;:&amp;&amp;.  B@,   :@,  :@@@S ,@G,&amp;,       
+        .B@,  B&amp;.M&amp;.  B@,   :@,    :@@;,@,,&amp;G       
+         3@, ,&amp;&amp;&amp;&amp;&amp;.  B@,   :@,     :@35&amp;&amp;&amp;&amp;&amp;.      
+         3@, ,&amp;. ,&amp;B:&amp;&amp;&amp;&amp;3  :@, :@@@@@:&amp;&amp;. 3&amp;.      
+                                 ,B@H.              
+                                                    
+                                                    
+                                                    
+                                                    
+                                                    
+</pre>
+      </div>
+
+      <div class="status-line intro-fade"><span class="status-dot"></span><span>still here...</span></div>
+
+      <div id="shu-secret" aria-hidden="true">click me?</div>
+
+      <div id="quote-reveal" class="intro-fade">
+        <div id="quote">не бойся</div>
+      </div>
+
+      <div id="bio" class="intro-fade">
+        <div id="bio-toggle"><span id="bio-caret">&gt;</span> bio</div>
+        <div id="bio-body">
+          привет незнакомец. я шу, занимаюсь звуко дизайном,<br>
+          мне приятно общаться с людьми и сидеть с ними в войсе.<br>
+          ну вроде бы все.
+          <div class="bio-contact" title="discord">
+            discord — <a href="https://discord.com/users/alsonotshu" target="_blank" rel="noopener noreferrer">alsonotshu</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="footer-links">
+    <a href="https://github.com/AlsoNotShu" target="_blank" rel="noopener noreferrer" aria-label="GitHub">
+      <i class="fab fa-github"></i><span class="corrupt-text" data-busy="" data-restore="github">github</span>
+    </a>
+    <a href="https://discord.gg/ua8JpxnkqS" target="_blank" rel="noopener noreferrer" aria-label="Discord">
+      <i class="fab fa-discord"></i><span class="corrupt-text" data-busy="" data-restore="discord">discord</span>
+    </a>
+    <a href="https://steamcommunity.com/profiles/76561199600441378/" target="_blank" rel="noopener noreferrer" aria-label="Steam">
+      <i class="fab fa-steam"></i><span class="corrupt-text" data-busy="" data-restore="steam">steam</span>
+    </a>
+    <a href="https://www.tiktok.com/@alsonotshu" target="_blank" rel="noopener noreferrer" aria-label="TikTok">
+      <i class="fab fa-tiktok"></i><span class="corrupt-text" data-busy="" data-restore="tiktok">tiktok</span>
+    </a>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
+  <script>
+    const isTouch = window.matchMedia('(pointer: coarse)').matches;
+
+    let mouseX = window.innerWidth / 2;
+    let mouseY = window.innerHeight / 2;
+
+    document.addEventListener('mousemove', (e) => {
+      mouseX = e.clientX;
+      mouseY = e.clientY;
+    });
+    // ---------- ambient floating lights ----------
+    const ambientCanvas = document.getElementById('ambient-canvas');
+    const ambientCtx = ambientCanvas.getContext('2d');
+    const ambientLights = [];
+
+    function initAmbient() {
+      ambientCanvas.width = window.innerWidth;
+      ambientCanvas.height = window.innerHeight;
+      ambientLights.length = 0;
+      const count = window.innerWidth < 768 ? 10 : 18;
+
+      for (let i = 0; i < count; i++) {
+        ambientLights.push({
+          x: Math.random() * ambientCanvas.width,
+          y: Math.random() * ambientCanvas.height,
+          r: 1.5 + Math.random() * 3.5,
+          vx: (Math.random() - 0.5) * 0.18,
+          vy: -0.08 - Math.random() * 0.18,
+          phase: Math.random() * Math.PI * 2
+        });
+      }
+    }
+
+    function drawAmbient() {
+      ambientCtx.clearRect(0, 0, ambientCanvas.width, ambientCanvas.height);
+
+      for (const p of ambientLights) {
+        p.x += p.vx;
+        p.y += p.vy;
+        p.phase += 0.012;
+
+        if (p.y < -20) p.y = ambientCanvas.height + 20;
+        if (p.x < -20) p.x = ambientCanvas.width + 20;
+        if (p.x > ambientCanvas.width + 20) p.x = -20;
+
+        const alpha = 0.06 + (Math.sin(p.phase) + 1) * 0.025;
+        const glow = ambientCtx.createRadialGradient(p.x, p.y, 0, p.x, p.y, p.r * 7);
+        glow.addColorStop(0, `rgba(215, 225, 255, ${alpha})`);
+        glow.addColorStop(1, 'rgba(215, 225, 255, 0)');
+
+        ambientCtx.fillStyle = glow;
+        ambientCtx.beginPath();
+        ambientCtx.arc(p.x, p.y, p.r * 7, 0, Math.PI * 2);
+        ambientCtx.fill();
+      }
+
+      requestAnimationFrame(drawAmbient);
+    }
+
+    initAmbient();
+    drawAmbient();
+    window.addEventListener('resize', initAmbient);
+
+    document.addEventListener('keydown', function (e) {
+      const key = e.key ? e.key.toLowerCase() : '';
+      if (
+        (e.ctrlKey && key === 's') ||
+        (e.ctrlKey && key === 'u')
+      ) {
+        e.preventDefault();
+      }
+    });
+
+    const cursorDot = document.getElementById('cursor-dot');
+    const cursorRing = document.getElementById('cursor-ring');
+
+    // ---------- click droplet / ripple ----------
+    function createClickRipple(x, y) {
+      const ripple = document.createElement('span');
+      ripple.className = 'click-ripple';
+      ripple.style.left = x + 'px';
+      ripple.style.top = y + 'px';
+      document.body.appendChild(ripple);
+
+      const drops = 5;
+      for (let i = 0; i < drops; i++) {
+        const drop = document.createElement('span');
+        drop.className = 'click-drop';
+        drop.style.left = x + 'px';
+        drop.style.top = y + 'px';
+        const angle = (Math.PI * 2 * i / drops) + (Math.random() - 0.5) * 0.35;
+        const distance = 10 + Math.random() * 15;
+        drop.style.setProperty('--dx', Math.cos(angle) * distance + 'px');
+        drop.style.setProperty('--dy', Math.sin(angle) * distance + 'px');
+        drop.style.animationDelay = (Math.random() * 0.08) + 's';
+        document.body.appendChild(drop);
+        drop.addEventListener('animationend', () => drop.remove(), { once: true });
+      }
+
+      ripple.addEventListener('animationend', () => ripple.remove(), { once: true });
+    }
+
+    document.addEventListener('pointerdown', (e) => {
+      createClickRipple(e.clientX, e.clientY);
+    });
+
+    const hoverSel = 'a, button, [role="button"], #bio-toggle';
+
+    if (!isTouch) {
+      let ringX = window.innerWidth / 2;
+      let ringY = window.innerHeight / 2;
+
+      document.addEventListener('mousemove', (e) => {
+        cursorDot.style.left = e.clientX + 'px';
+        cursorDot.style.top = e.clientY + 'px';
+      });
+
+      document.addEventListener('mousedown', () => cursorRing.classList.add('pressed'));
+      document.addEventListener('mouseup', () => cursorRing.classList.remove('pressed'));
+
+      function cursorLoop() {
+        let targetX = parseFloat(cursorDot.style.left) || window.innerWidth / 2;
+        let targetY = parseFloat(cursorDot.style.top) || window.innerHeight / 2;
+
+        ringX += (targetX - ringX) * 0.35;
+        ringY += (targetY - ringY) * 0.35;
+        cursorRing.style.left = ringX + 'px';
+        cursorRing.style.top = ringY + 'px';
+
+        const el = document.elementFromPoint(targetX, targetY);
+        const onHover = el && el.closest && el.closest(hoverSel);
+        cursorRing.classList.toggle('hover', !!onHover);
+
+        requestAnimationFrame(cursorLoop);
+      }
+
+      cursorLoop();
+    }
+
+    const quotes = [
+      'загляни в мой дискорд, пожалуйста',
+      timeQuote,
+      'почему ты всё ещё это читаешь?',
+      nameQuote
+    ];
+
+    const sessionStart = Date.now();
+
+    function fmtTime(sec) {
+      const s = Math.floor(sec);
+      const h = Math.floor(s / 3600);
+      const m = Math.floor((s % 3600) / 60);
+      const ss = s % 60;
+      const pad = (n) => (n < 10 ? '0' + n : '' + n);
+      return h > 0 ? h + ':' + pad(m) + ':' + pad(ss) : m + ':' + pad(ss);
+    }
+
+    function timeQuote() {
+      return 'ты тут сидел уже ' + fmtTime((Date.now() - sessionStart) / 1000);
+    }
+
+    function nameQuote() {
+      return 'привет, незнакомец. как твой день прошел?';
+    }
+
+    const quoteEl = document.getElementById('quote');
+
+    const lastQuotes = [];
+    const charset = '!@#%&*?$';
+    let quoteTimer = null;
+
+    function pickQuote() {
+      let index;
+      do {
+        index = Math.floor(Math.random() * quotes.length);
+      } while (lastQuotes.includes(index) && lastQuotes.length < quotes.length);
+      lastQuotes.push(index);
+      if (lastQuotes.length > 2) lastQuotes.shift();
+      return quotes[index];
+    }
+
+    const randSymbol = () => charset[Math.floor(Math.random() * charset.length)];
+
+    function animateTextCycle(getText, setText, target, onDone) {
+      const disp = getText().split('');
+      const targetLen = target.length;
+
+      const canScramble = (i) => (i < disp.length && disp[i] !== ' ');
+
+      let timer;
+      let phase = 'noise';
+      let tick = 0;
+      let states = [];
+
+      function randomizePos() {
+        const choices = [];
+        for (let i = 0; i < disp.length; i++) if (canScramble(i)) choices.push(i);
+        if (choices.length) disp[choices[Math.floor(Math.random() * choices.length)]] = randSymbol();
+      }
+
+      phase = 'noise';
+      tick = 0;
+      timer = setInterval(() => {
+        if (phase === 'noise') {
+          randomizePos();
+          randomizePos();
+          tick++;
+          if (tick >= disp.length) {
+            phase = 'fit';
+            tick = 0;
+          }
+        } else if (phase === 'fit') {
+          while (disp.length < targetLen) disp.push(randSymbol());
+          while (disp.length > targetLen) disp.pop();
+          randomizePos();
+          tick++;
+          if (tick >= Math.max(3, Math.abs(targetLen - disp.length)) + 1) {
+            phase = 'settle';
+            states = [];
+            for (let i = 0; i < targetLen; i++) {
+              if (target[i] === ' ') {
+                disp[i] = ' ';
+                states.push({ flips: 0, done: true });
+              } else {
+                states.push({ flips: 2 + Math.floor(Math.random() * 4), done: false });
+              }
+            }
+            tick = 0;
+          }
+        } else {
+          const pending = [];
+          for (let i = 0; i < states.length; i++) if (!states[i].done) pending.push(i);
+          if (pending.length) {
+            const idx = pending[Math.floor(Math.random() * pending.length)];
+            const st = states[idx];
+            if (st.flips > 0) {
+              st.flips--;
+              disp[idx] = randSymbol();
+            } else {
+              st.done = true;
+              disp[idx] = target[idx];
+            }
+          } else {
+            clearInterval(timer);
+            setText(target);
+            if (onDone) onDone();
+            return;
+          }
+        }
+        setText(disp.join(''));
+      }, 13);
+
+      return timer;
+    }
+
+    quoteEl.innerText = (function getQuoteText(q) {
+      return typeof q === 'function' ? q() : q;
+    })(pickQuote());
+
+    let quoteTimeout = null;
+
+    function startQuoteCycle() {
+      if (quoteTimer) clearInterval(quoteTimer);
+      const next = pickQuote();
+      const target = typeof next === 'function' ? next() : next;
+      quoteTimer = animateTextCycle(
+        () => quoteEl.innerText,
+        (s) => { quoteEl.innerText = s; },
+        target,
+        () => { quoteTimeout = setTimeout(startQuoteCycle, 2000); }
+      );
+    }
+
+    setTimeout(startQuoteCycle, 2000);
+
+    const tabTitles = ['привет друг', 'кто я такой??', 'мы все умрем', 'жизнь не вечна'];
+    let titleIndex = Math.floor(Math.random() * tabTitles.length);
+    let titleTimer = null;
+    let titleTimeout = null;
+    document.title = 'кто я такой??';
+
+    function nextTitle() {
+      if (titleTimer) clearInterval(titleTimer);
+      titleIndex = (titleIndex + 1) % tabTitles.length;
+      titleTimer = animateTextCycle(
+        () => document.title,
+        (s) => { document.title = s; },
+        tabTitles[titleIndex],
+        () => { titleTimeout = setTimeout(nextTitle, 2000); }
+      );
+    }
+
+    setTimeout(nextTitle, 2500);
+
+    // ---------- url hash cycling ----------
+    const urlHashNames = ['#кто_я??', '#а_кто_ты???', '#уйдите_отсюда', '#мы_все_умрем', 'мощно'];
+    const urlGlitchChars = 'АБВГДЕЁЖЗИКЛМНОПРСТУФХЦЧШЩЪЫЬЭЮЯабвгдеёжзиклмнопрстуфхцчшщъыьэюя?!@*_&$';
+    let urlIndex = 0;
+
+    function setUrlHash(txt) {
+      try {
+        history.replaceState(null, '', window.location.pathname + window.location.search + '#' + txt);
+      } catch (err) {}
+    }
+
+    function glitchUrl() {
+      const target = urlHashNames[urlIndex];
+      let frames = 0;
+      const iv = setInterval(() => {
+        frames++;
+        if (frames >= 8) {
+          clearInterval(iv);
+          setUrlHash(target);
+          urlIndex = (urlIndex + 1) % urlHashNames.length;
+          setTimeout(glitchUrl, 2500);
+        } else {
+          let out = '';
+          for (let i = 0; i < target.length; i++) {
+            out += Math.random() < 0.45 ? urlGlitchChars[Math.floor(Math.random() * urlGlitchChars.length)] : target[i];
+          }
+          setUrlHash(out);
+        }
+      }, 45);
+    }
+
+    glitchUrl();
+
+    // ---------- link corruption on hover ----------
+    document.querySelectorAll('.corrupt-text').forEach((el) => {
+      const link = el.closest('a');
+      let ghTimer = null;
+
+      link.addEventListener('mouseenter', () => {
+        if (el.dataset.busy === '1') return;
+        el.dataset.busy = '1';
+        el.classList.add('corrupting');
+        ghTimer = animateTextCycle(
+          () => el.textContent,
+          (s) => { el.textContent = s; },
+          el.dataset.restore || 'github',
+          () => {
+            el.dataset.busy = '';
+            el.classList.remove('corrupting');
+          }
+        );
+      });
+
+      link.addEventListener('mouseleave', () => {
+        if (!el.dataset.busy) return;
+        if (ghTimer) clearInterval(ghTimer);
+        ghTimer = null;
+        el.dataset.busy = '';
+        el.classList.remove('corrupting');
+        el.textContent = el.dataset.restore || 'github';
+      });
+    });
+
+    const faviconLink = document.querySelector('link[rel="icon"]');
+    function faviconSVG() {
+      return "<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='24' fill='#0b0d14'/><text x='50' y='65' text-anchor='middle' font-family='Arial, sans-serif' font-size='38' font-weight='700' fill='#eef2ff'>SHU</text></svg>";
+    }
+
+    function setFavicon() {
+      faviconLink.setAttribute('href', 'data:image/svg+xml,' + encodeURIComponent(faviconSVG()));
+    }
+
+    setFavicon();
+
+    // ---------- bio toggle ----------
+    const bioToggle = document.getElementById('bio-toggle');
+    if (bioToggle) {
+      bioToggle.addEventListener('click', () => {
+        document.getElementById('bio').classList.toggle('open');
+      });
+    }
+
+    // ---------- mouse atmosphere ----------
+    if (!isTouch) {
+      const floatBox = document.getElementById('float-box');
+      let targetTiltX = 0, targetTiltY = 0, tiltX = 0, tiltY = 0;
+      document.addEventListener('mousemove', (e) => {
+        targetTiltX = (e.clientX / window.innerWidth - 0.5) * 5;
+        targetTiltY = (e.clientY / window.innerHeight - 0.5) * 4;
+      });
+      function smoothAtmosphere() {
+        tiltX += (targetTiltX - tiltX) * 0.045;
+        tiltY += (targetTiltY - tiltY) * 0.045;
+        if (floatBox) floatBox.style.transform = `translate3d(${tiltX}px, ${tiltY}px, 0)`;
+        requestAnimationFrame(smoothAtmosphere);
+      }
+      smoothAtmosphere();
+    }
+
+    // ---------- music visualizer ----------
+    const visualizer = document.getElementById('music-visualizer');
+    const bars = visualizer ? [...visualizer.children] : [];
+    let audioCtx = null, analyser = null, audioSource = null;
+    function setupVisualizer() {
+      if (!visualizer || analyser) return;
+      try {
+        audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+        analyser = audioCtx.createAnalyser();
+        analyser.fftSize = 64;
+        audioSource = audioCtx.createMediaElementSource(bgm);
+        audioSource.connect(analyser);
+        analyser.connect(audioCtx.destination);
+      } catch (_) {}
+    }
+    function animateVisualizer() {
+      if (analyser && audioCtx && !bgm.paused) {
+        const data = new Uint8Array(analyser.frequencyBinCount);
+        analyser.getByteFrequencyData(data);
+        bars.forEach((bar, i) => {
+          const v = data[Math.min(i * 2, data.length - 1)] / 255;
+          bar.style.height = `${4 + v * 13}px`;
+        });
+        visualizer.classList.add('active');
+      } else {
+        bars.forEach((bar, i) => bar.style.height = `${4 + Math.sin(Date.now() / 420 + i) * 1.5}px`);
+        visualizer && visualizer.classList.remove('active');
+      }
+      requestAnimationFrame(animateVisualizer);
+    }
+
+    // ---------- background music ----------
+    const bgm = document.getElementById('bgm');
+    bgm.volume = 0.3;
+    function startMusic() {
+      setupVisualizer();
+      if (audioCtx && audioCtx.state === 'suspended') audioCtx.resume().catch(() => {});
+      if (bgm.paused) bgm.play().catch(() => {});
+    }
+    bgm.addEventListener('canplay', startMusic);
+    animateVisualizer();
+    const firstInteract = () => {
+      startMusic();
+      window.removeEventListener('pointerdown', firstInteract);
+      window.removeEventListener('keydown', firstInteract);
+    };
+    window.addEventListener('pointerdown', firstInteract);
+    window.addEventListener('keydown', firstInteract);
+
+    particlesJS('particles-js', {
+      particles: {
+        number: {
+          value: 48,
+          density: {
+            enable: true,
+            value_area: 900
+          }
+        },
+        color: {
+          value: ['#d9d9d9', '#bdbdc7', '#ffffff']
+        },
+        shape: {
+          type: 'circle'
+        },
+        opacity: {
+          value: 0.18,
+          random: true,
+          anim: {
+            enable: true,
+            speed: 0.25,
+            opacity_min: 0.05,
+            sync: false
+          }
+        },
+        size: {
+          value: 2.2,
+          random: true
+        },
+        line_linked: {
+          enable: false
+        },
+        move: {
+          enable: true,
+          speed: 0.55,
+          direction: 'none',
+          random: true,
+          straight: false,
+          out_mode: 'out',
+          bounce: false
+        }
+      },
+      interactivity: {
+        detect_on: 'canvas',
+        events: {
+          onhover: { enable: false },
+          onclick: { enable: false },
+          resize: true
+        }
+      },
+      retina_detect: true
+    });
+
+    const box = document.getElementById('float-box');
+
+    if (!isTouch) {
+      document.addEventListener('mousemove', (e) => {
+        const x = (e.clientX - window.innerWidth / 2) / 45;
+        const y = (e.clientY - window.innerHeight / 2) / 55;
+        box.style.transform = `translate3d(${x}px, ${y}px, 0)`;
+      });
+    }
+
+    const asciiTitle = document.getElementById('ascii-title');
+    const asciiChars = ' .,:;irsXA253hMHGS#9B&@';
+    const asciiCanvas = document.createElement('canvas');
+    const asciiCtx = asciiCanvas.getContext('2d', { willReadFrequently: true });
+
+    let asciiTime = 0;
+    let asciiMouseX = 0;
+    let asciiMouseY = 0;
+
+    document.addEventListener('mousemove', (e) => {
+      asciiMouseX = (e.clientX - window.innerWidth / 2) / window.innerWidth;
+      asciiMouseY = (e.clientY - window.innerHeight / 2) / window.innerHeight;
+    });
+
+    function renderAsciiTitle() {
+      const isMobile = window.innerWidth < 768;
+
+      const renderWidth = isMobile ? 260 : 420;
+      const renderHeight = isMobile ? 90 : 140;
+
+      asciiCanvas.width = renderWidth;
+      asciiCanvas.height = renderHeight;
+
+      asciiCtx.clearRect(0, 0, renderWidth, renderHeight);
+      asciiCtx.fillStyle = 'black';
+      asciiCtx.fillRect(0, 0, renderWidth, renderHeight);
+
+      const driftX = Math.sin(asciiTime * 1.0) * 1.2 + asciiMouseX * 5;
+      const driftY = Math.cos(asciiTime * 0.8) * 1.1 + asciiMouseY * 3;
+
+      const fontSize = isMobile ? 58 : 92;
+
+      asciiCtx.save();
+      asciiCtx.translate(renderWidth / 2 + driftX, renderHeight / 2 + driftY);
+      asciiCtx.textAlign = 'center';
+      asciiCtx.textBaseline = 'middle';
+      asciiCtx.font = `bold ${fontSize}px monospace`;
+
+      asciiCtx.globalAlpha = 1;
+      asciiCtx.fillStyle = 'rgba(238, 242, 255, 0.88)';
+      asciiCtx.fillText('SHU', 0, 0);
+
+      asciiCtx.globalAlpha = 0.14 + Math.sin(asciiTime * 1.7) * 0.02;
+      asciiCtx.fillStyle = '#cfd8ff';
+      asciiCtx.fillText('SHU', -4, 0);
+
+      asciiCtx.globalAlpha = 0.08 + Math.cos(asciiTime * 1.3) * 0.015;
+      asciiCtx.fillStyle = '#ffdede';
+      asciiCtx.fillText('SHU', 4, 0);
+
+      asciiCtx.restore();
+
+      const img = asciiCtx.getImageData(0, 0, renderWidth, renderHeight).data;
+
+      const stepX = isMobile ? 5 : 6;
+      const stepY = isMobile ? 5 : 6;
+
+      let output = '';
+
+      for (let y = 0; y < renderHeight; y += stepY) {
+        let row = '';
+
+        for (let x = 0; x < renderWidth; x += stepX) {
+          const i = (y * renderWidth + x) * 4;
+          const r = img[i];
+          const g = img[i + 1];
+          const b = img[i + 2];
+
+          const brightness = (0.299 * r + 0.587 * g + 0.114 * b) / 255;
+          const noise = (Math.sin(asciiTime * 1.8 + x * 0.04 + y * 0.03) + 1) * 0.02;
+          const value = Math.max(0, Math.min(1, brightness + noise));
+
+          const index = Math.floor(value * (asciiChars.length - 1));
+          row += asciiChars[index];
+        }
+
+        output += row + '\n';
+      }
+
+      const outLines = output.split('\n');
+      while (outLines.length && /^ *$/.test(outLines[outLines.length - 1])) outLines.pop();
+      output = outLines.join('\n');
+
+      asciiTitle.textContent = output;
+      asciiTime += 0.03;
+    }
+
+    let asciiLoopOn = false;
+
+    function asciiLoop() {
+      renderAsciiTitle();
+      if (asciiLoopOn) requestAnimationFrame(asciiLoop);
+    }
+
+
+    const shuSecret = document.getElementById('shu-secret');
+    const asciiWrap = document.querySelector('.ascii-title-wrap');
+
+    if (asciiWrap && shuSecret) {
+      let shuClicks = 0;
+      asciiWrap.addEventListener('click', () => {
+        shuClicks++;
+        if (shuClicks >= 3) {
+          shuSecret.textContent = 'you found the quiet part';
+          shuSecret.classList.add('show');
+          setTimeout(() => shuSecret.classList.remove('show'), 2200);
+          shuClicks = 0;
+        }
+      });
+    }
+
+    // ---------- rare title glitch ----------
+    setInterval(() => {
+      const title = document.getElementById('ascii-title');
+      if (!title || document.hidden || Math.random() > 0.55) return;
+      title.classList.add('glitching');
+      setTimeout(() => title.classList.remove('glitching'), 220);
+    }, 6500);
+
+    // ---------- INTRO ----------
+    const quoteReveal = document.getElementById('quote-reveal');
+    const statusLine = document.querySelector('.status-line');
+    const bioEl = document.getElementById('bio');
+    const footerLinks = document.querySelector('.footer-links');
+
+    const glitchChars = '▓▒░#%&@*!?0123456789';
+    const setCharAt = (str, idx, ch) => str.slice(0, idx) + ch + str.slice(idx + 1);
+
+    function scrambleRow(row) {
+      let out = '';
+      for (let i = 0; i < row.length; i++) {
+        if (row[i] === ' ') {
+          out += Math.random() < 0.15 ? glitchChars[Math.floor(Math.random() * glitchChars.length)] : ' ';
+        } else {
+          out += glitchChars[Math.floor(Math.random() * glitchChars.length)];
+        }
+      }
+      return out;
+    }
+
+    function solveRow(span, finalRow) {
+      const iv = setInterval(() => {
+        let remaining = 0;
+        for (let i = 0; i < finalRow.length; i++) {
+          if (span.textContent[i] !== finalRow[i] && Math.random() < 0.35) {
+            span.textContent = setCharAt(span.textContent, i, finalRow[i]);
+          }
+          if (span.textContent[i] !== finalRow[i]) remaining++;
+        }
+        if (remaining === 0) {
+          clearInterval(iv);
+          span.textContent = finalRow;
+        }
+      }, 24);
+    }
+
+    function startTitleIntro() {
+      renderAsciiTitle();
+      const rows = asciiTitle.textContent.split('\n');
+      asciiTitle.textContent = '';
+      const total = rows.length;
+      const rowStep = 85;
+
+      for (let i = 0; i < total; i++) {
+        const delay = i * rowStep + Math.random() * 45;
+        setTimeout(() => {
+          const span = document.createElement('span');
+          span.className = 'ascii-row';
+          span.textContent = scrambleRow(rows[i]);
+          asciiTitle.appendChild(span);
+          requestAnimationFrame(() => {
+            span.classList.add('on');
+            solveRow(span, rows[i]);
+          });
+        }, delay);
+      }
+
+      setTimeout(() => {
+        asciiTitle.classList.add('sync');
+        asciiLoopOn = true;
+        asciiLoop();
+        revealContent();
+      }, (total - 1) * rowStep + 550);
+    }
+
+    function revealContent() {
+      setTimeout(() => quoteReveal.classList.add('fade-in'), 250);
+      setTimeout(() => statusLine && statusLine.classList.add('fade-in'), 420);
+      setTimeout(() => bioEl.classList.add('fade-in'), 600);
+      setTimeout(() => footerLinks.classList.add('fade-in'), 950);
+      setTimeout(startQuoteCycle, 1200);
+    }
+
+    startTitleIntro();
+
+</script>
+
+
+</body></html>
