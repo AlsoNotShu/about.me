@@ -579,20 +579,6 @@ nav{
 .hero-actions{
   flex-wrap:wrap;
 }
-.title-art{
-  width:min(100%,720px);
-  margin-top:20px;
-  border-radius:22px;
-  overflow:hidden;
-  border:1px solid rgba(255,255,255,.08);
-  box-shadow:0 20px 70px rgba(0,0,0,.18);
-  background:rgba(255,255,255,.02);
-}
-.title-art svg{
-  display:block;
-  width:100%;
-  height:auto;
-}
 .section{
   padding:105px 0;
 }
@@ -767,8 +753,6 @@ body.light .message-modal{background:rgba(0,0,0,.38)}
 body.light .message-panel{background:rgba(248,248,248,.97);border-color:#ddd}
 body.light .message-input,body.light .message-textarea{background:#fff;color:#111;border-color:#ddd}
 body.light .contact-trigger{border-color:#ddd;background:#fff;color:#111}
-body.light .title-art{border-color:#ddd;background:#fff}
-body.light .title-art svg text{fill:#111}
 body.light .message-submit{background:#111;color:#fff}
 
 @media(max-width:800px){
@@ -793,9 +777,6 @@ body.light .message-submit{background:#111;color:#fff}
   }
   .hero h1{
     font-size:clamp(50px,15vw,82px);
-  }
-  .title-art{
-    border-radius:17px;
   }
   .section{padding:82px 0}
   .section-head{
@@ -830,10 +811,10 @@ body.light .message-submit{background:#111;color:#fff}
 <div class="ambient ambient-a" aria-hidden="true"></div>
 <div class="ambient ambient-b" aria-hidden="true"></div>
 <div class="progress" aria-hidden="true"></div>
-<div class="preloader" aria-hidden="true"><div class="preloader-mark">МОЁ ПОРТФОЛИО</div><div class="preloader-line"><i></i></div></div>
+<div class="preloader" aria-hidden="true"><div class="preloader-mark">ШУ.</div><div class="preloader-line"><i></i></div></div>
 
 <nav>
-  <a class="logo" href="#">МОЁ ПОРТФОЛИО</a>
+  <a class="logo" href="#">ШУ.</a>
   <ul class="nav-links">
     <li><a href="#about">Обо мне</a></li>
     <li><a href="#interests">Интересы</a></li>
@@ -865,26 +846,12 @@ body.light .message-submit{background:#111;color:#fff}
     <div class="hero-actions">
       <a class="btn primary" href="#about">Узнать обо мне ↓</a>
       <a class="btn" href="#links">Связаться ↗</a>
-    
-<div class="title-art" role="img" aria-label="Моё портфолио">
-  <svg viewBox="0 0 720 150" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-    <defs>
-      <linearGradient id="titleGlow" x1="0" x2="1">
-        <stop offset="0" stop-color="#fff"/>
-        <stop offset="1" stop-color="#6f6f77"/>
-      </linearGradient>
-      <filter id="softGlow">
-        <feGaussianBlur stdDeviation="7" result="blur"/>
-        <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
-      </filter>
-    </defs>
-    <rect x="1" y="1" width="718" height="148" rx="26" fill="rgba(255,255,255,.025)" stroke="rgba(255,255,255,.12)"/>
-    <circle cx="80" cy="75" r="34" fill="none" stroke="rgba(255,255,255,.16)"/>
-    <path d="M63 75h34M80 58v34" stroke="url(#titleGlow)" stroke-width="2"/>
-    <text x="135" y="88" fill="url(#titleGlow)" font-family="Inter,Arial,sans-serif" font-size="43" font-weight="800" letter-spacing="-2">МОЁ ПОРТФОЛИО</text>
-  </svg>
-</div>
-</div>
+      <a class="portfolio-cta magnetic" href="https://discord.gg/Ak2yJv5vMg" target="_blank" rel="noopener noreferrer" aria-label="Моё портфолио — открыть Discord">
+        <span class="portfolio-cta-icon">✦</span>
+        <span class="portfolio-cta-text">Моё портфолио</span>
+        <span class="portfolio-cta-arrow">↗</span>
+      </a>
+    </div>
   </div>
 
   <div class="avatar-wrap">
@@ -1045,8 +1012,8 @@ body.light .message-submit{background:#111;color:#fff}
 </main>
 
 <footer class="container">
-  <span>Моё портфолио</span>
-  <span>© 2026 · Personal Portfolio</span>
+  <span>Шу.</span>
+  <span>© 2026 · Personal Bio</span>
 </footer>
 
 <script>
